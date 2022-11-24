@@ -84,7 +84,6 @@ int main( )
   Line(LC_5.x_1,LC_5.y_1,LC_5.x_2,LC_5.y_2); 
   Line(LC_6.x_1,LC_6.y_1,LC_6.x_2,LC_6.y_2); 
   char Key=NULL;
-  
   do
   {
     Key=getch( );
@@ -92,33 +91,40 @@ int main( )
   settextstyle(0,0,1); 
   setcolor(0);
   outtextxy(163,450,"Press 'C' to see the Clipped Lines. ");
-
-  setcolor(15); outtextxy(163,450,"—— ——-"); setcolor(12);
-outtextxy(213,450,"Press any Key to exit. "); setcolor(10);
-if(clip_line(WC,LC_1)) Line(LC_1.x_1,LC_1.y_1,LC_1.x_2,LC_1.y_2);
-if(clip_line(WC,LC_2)) Line(LC_2.x_1,LC_2.y_1,LC_2.x_2,LC_2.y_2);
-if(clip_line(WC,LC_3)) Line(LC_3.x_1,LC_3.y_1,LC_3.x_2,LC_3.y_2);
-if(clip_line(WC,LC_4)) Line(LC_4.x_1,LC_4.y_1,LC_4.x_2,LC_4.y_2);
-if(clip_line(WC,LC_5)) Line(LC_5.x_1,LC_5.y_1,LC_5.x_2,LC_5.y_2);
-if(clip_line(WC,LC_6)) Line(LC_6.x_1,LC_6.y_1,LC_6.x_2,LC_6.y_2);
-getch( ); return 0;
+  setcolor(15); outtextxy(163,450,"—— ——-"); 
+  setcolor(12);
+  outtextxy(213,450,"Press any Key to exit. "); 
+  setcolor(10);
+  if(clip_line(WC,LC_1)) Line(LC_1.x_1,LC_1.y_1,LC_1.x_2,LC_1.y_2);
+  if(clip_line(WC,LC_2)) Line(LC_2.x_1,LC_2.y_1,LC_2.x_2,LC_2.y_2);
+  if(clip_line(WC,LC_3)) Line(LC_3.x_1,LC_3.y_1,LC_3.x_2,LC_3.y_2);
+  if(clip_line(WC,LC_4)) Line(LC_4.x_1,LC_4.y_1,LC_4.x_2,LC_4.y_2);
+  if(clip_line(WC,LC_5)) Line(LC_5.x_1,LC_5.y_1,LC_5.x_2,LC_5.y_2);
+  if(clip_line(WC,LC_6)) Line(LC_6.x_1,LC_6.y_1,LC_6.x_2,LC_6.y_2);
+  getch( ); 
+  return 0;
 }
+
 const int clip_line(const WindowCoordinates wc,LineCoordinates &lc)
 {
-RegionCode rc1,rc2,rc; rc1.get_region_code(wc,lc.x_1,lc.y_1); rc2.get_region_code(wc,lc.x_2,lc.y_2); rc.get_logical_AND(rc1,rc2); if(rc1.equal_zero( ) && rc2.equal_zero( ))
-return 1;
-else if(!rc.equal_zero( )) return 0;
-else
-{
-calculate_intersecting_points(wc,lc); lc.x_1=(int)(lc.x_1+0.5);
-lc.y_1=(int)(lc.y_1+0.5);
-lc.x_2=(int)(lc.x_2+0.5);
-lc.y_2=(int)(lc.y_2+0.5); if(lc.x_1==lc.x_2 && lc.y_1==lc.y_2)
-return 0;
+  RegionCode rc1,rc2,rc;
+  rc1.get_region_code(wc,lc.x_1,lc.y_1); 
+  rc2.get_region_code(wc,lc.x_2,lc.y_2); 
+  rc.get_logical_AND(rc1,rc2); 
+  if(rc1.equal_zero( ) && rc2.equal_zero( )) return 1;
+  else if(!rc.equal_zero( )) return 0;
+  else
+  {
+    calculate_intersecting_points(wc,lc); 
+    lc.x_1=(int)(lc.x_1+0.5);
+    lc.y_1=(int)(lc.y_1+0.5);
+    lc.x_2=(int)(lc.x_2+0.5);
+    lc.y_2=(int)(lc.y_2+0.5); 
+    if(lc.x_1==lc.x_2 && lc.y_1==lc.y_2) return 0;
+  }
+  return 1;
 }
- 
-return 1;
-}
+
 void calculate_intersecting_points(const WindowCoordinates wc,LineCoordinates &lc)
 {
 LineCoordinates lc1(lc.x_1,lc.y_1,lc.x_2,lc.y_2); LineCoordinates lc2(lc.x_2,lc.y_2,lc.x_1,lc.y_1); float x_mid;
@@ -259,52 +265,62 @@ lc.x_1=lc1.x_1; lc.y_1=lc1.y_1; lc.x_2=lc2.x_1; lc.y_2=lc2.y_1;
 //————————— Rectangle( ) —————————-//
 void Rectangle(const int x_1,const int y_1,const int x_2,const int y_2)
 {
-Line(x_1,y_1,x_2,y_1); Line(x_2,y_1,x_2,y_2); Line(x_2,y_2,x_1,y_2); Line(x_1,y_2,x_1,y_1);
+  Line(x_1,y_1,x_2,y_1); 
+  Line(x_2,y_1,x_2,y_2); 
+  Line(x_2,y_2,x_1,y_2); 
+  Line(x_1,y_2,x_1,y_1);
 }
 //————————– Line( ) ————————//
 void Line(const int x_1,const int y_1,const int x_2,const int y_2)
 {
-int color=getcolor( ); int x1=x_1;
-int y1=y_1; int x2=x_2; int y2=y_2;
- 
-if(x_1>x_2)
-{
-x1=x_2; y1=y_2; x2=x_1; y2=y_1;
-}
-int dx=abs(x2-x1); int dy=abs(y2-y1);
-int inc_dec=((y2>=y1)?1:-1); if(dx>dy)
-{
-int two_dy=(2*dy);
-int two_dy_dx=(2*(dy-dx)); int p=((2*dy)-dx);
-int x=x1; int y=y1;
-putpixel(x,y,color); while(x<x2)
-{
-x++;
-if(p<0)
-p+=two_dy; else
-{
-y+=inc_dec; p+=two_dy_dx;
-}
-putpixel(x,y,color);
-}
-}
-else
-{
-int two_dx=(2*dx);
-int two_dx_dy=(2*(dx-dy)); int p=((2*dx)-dy);
-int x=x1; int y=y1;
-putpixel(x,y,color); while(y!=y2)
- 
-{
-y+=inc_dec; if(p<0)
-p+=two_dx; else
-{
-x++;
-p+=two_dx_dy;
-}
-putpixel(x,y,color);
-}
-}
+  int color=getcolor( ); 
+  int x1=x_1, y1=y_1, x2=x_2, y2=y_2;
+  if(x_1>x_2)
+  {
+    x1=x_2; 
+    y1=y_2; 
+    x2=x_1; 
+    y2=y_1;
+  }
+  int dx=abs(x2-x1); 
+  int dy=abs(y2-y1);
+  int inc_dec=((y2>=y1)?1:-1); 
+  if(dx>dy)
+  {
+    int two_dy=(2*dy);
+    int two_dy_dx=(2*(dy-dx)); 
+    int p=((2*dy)-dx);
+    int x=x1; int y=y1;
+    putpixel(x,y,color); 
+    while(x<x2)
+    {
+      x++;
+      if(p<0) p+=two_dy; 
+      else
+      {
+       y+=inc_dec; p+=two_dy_dx;
+      }
+      putpixel(x,y,color);
+    }
+   }
+  else
+  {
+    int two_dx=(2*dx);
+    int two_dx_dy=(2*(dx-dy)); int p=((2*dx)-dy);
+    int x=x1; int y=y1;
+    putpixel(x,y,color); 
+    while(y!=y2)
+    {
+      y+=inc_dec; 
+      if(p<0) p+=two_dx; 
+      else
+      {
+        x++;
+        p+=two_dx_dy;
+      }
+      putpixel(x,y,color);
+    }
+  }
 }
 
 
