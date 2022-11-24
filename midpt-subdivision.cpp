@@ -127,141 +127,169 @@ const int clip_line(const WindowCoordinates wc,LineCoordinates &lc)
 
 void calculate_intersecting_points(const WindowCoordinates wc,LineCoordinates &lc)
 {
-LineCoordinates lc1(lc.x_1,lc.y_1,lc.x_2,lc.y_2); LineCoordinates lc2(lc.x_2,lc.y_2,lc.x_1,lc.y_1); float x_mid;
-float y_mid; if(lc1.y_1>wc.y_max)
-{
-while(lc1.y_1!=wc.y_max)
-{
-x_mid=((lc1.x_1+lc1.x_2)/2); y_mid=((lc1.y_1+lc1.y_2)/2); if(y_mid>=wc.y_max)
-{
-lc1.x_1=x_mid; lc1.y_1=y_mid;
+  LineCoordinates lc1(lc.x_1,lc.y_1,lc.x_2,lc.y_2); 
+  LineCoordinates lc2(lc.x_2,lc.y_2,lc.x_1,lc.y_1); 
+  float x_mid, y_mid; 
+  if(lc1.y_1>wc.y_max)
+  {
+    while(lc1.y_1!=wc.y_max)
+    {
+      x_mid=((lc1.x_1+lc1.x_2)/2); 
+      y_mid=((lc1.y_1+lc1.y_2)/2); 
+      if(y_mid>=wc.y_max)
+      {
+        lc1.x_1=x_mid; 
+        lc1.y_1=y_mid;
+      }
+      else
+      {
+        lc1.x_2=x_mid; 
+        lc1.y_2=y_mid;
+      }
+      if((int)(lc1.x_1+0.5)==(int)(lc1.x_2+0.5) && (int)(lc1.y_1+0.5)==(int)(lc1.y_2+0.5)) break;
+    }
+  }
+  else if(lc1.y_1<wc.y_min)
+  {
+    while(lc1.y_1!=wc.y_min)
+    {
+      x_mid=((lc1.x_1+lc1.x_2)/2); 
+      y_mid=((lc1.y_1+lc1.y_2)/2); 
+      if(y_mid<=wc.y_min)
+      {
+        lc1.x_1=x_mid; 
+        lc1.y_1=y_mid;
+      }
+      elsw
+      {
+        lc1.x_2=x_mid; 
+        lc1.y_2=y_mid;
+      }
+      if((int)(lc1.x_1+0.5)==(int)(lc1.x_2+0.5) && (int)(lc1.y_1+0.5)==(int)(lc1.y_2+0.5)) break;
+    }
+  }
+  if(lc1.x_1>wc.x_max)
+  {
+    while(lc1.x_1!=wc.x_max)
+    {
+      x_mid=((lc1.x_1+lc1.x_2)/2); 
+      y_mid=((lc1.y_1+lc1.y_2)/2); 
+      if(x_mid>=wc.x_max)
+      {
+      lc1.x_1=x_mid; 
+        lc1.y_1=y_mid;
+      }
+      else
+      {
+        lc1.x_2=x_mid; 
+        lc1.y_2=y_mid;
+      }
+      if((int)(lc1.x_1+0.5)==(int)(lc1.x_2+0.5) && (int)(lc1.y_1+0.5)==(int)(lc1.y_2+0.5)) break;
+    }
+  }
+  else if(lc1.x_1<wc.x_min)
+  {
+    while(lc1.x_1!=wc.x_min)
+    {
+      x_mid=((lc1.x_1+lc1.x_2)/2);
+      y_mid=((lc1.y_1+lc1.y_2)/2);
+      if(x_mid<=wc.x_min)
+      {
+        lc1.x_1=x_mid; 
+        lc1.y_1=y_mid;
+      }
+      else
+      {
+        lc1.x_2=x_mid; 
+        lc1.y_2=y_mid;
+      }
+      if((int)(lc1.x_1+0.5)==(int)(lc1.x_2+0.5) && (int)(lc1.y_1+0.5)==(int)(lc1.y_2+0.5)) break;
+    }
+  }
+  lc2.x_2=lc1.x_1; 
+  lc2.y_2=lc1.y_1; 
+  if(lc2.y_1>wc.y_max)
+  {
+    while(lc2.y_1!=wc.y_max)
+    {
+      x_mid=((lc2.x_1+lc2.x_2)/2); 
+      y_mid=((lc2.y_1+lc2.y_2)/2); 
+      if(y_mid>=wc.y_max)
+      {
+        lc2.x_1=x_mid; 
+        lc2.y_1=y_mid;
+      }
+      else
+      {
+        lc2.x_2=x_mid; 
+        lc2.y_2=y_mid;
+      }
+      if((int)(lc2.x_1+0.5)==(int)(lc2.x_2+0.5) && (int)(lc2.y_1+0.5)==(int)(lc2.y_2+0.5)) break;
+    }
+  }
+  else if(lc2.y_1<wc.y_min)
+  {
+  while(lc2.y_1!=wc.y_min)
+  {
+    x_mid=((lc2.x_1+lc2.x_2)/2); 
+    y_mid=((lc2.y_1+lc2.y_2)/2); 
+    if(y_mid<=wc.y_min)
+    {
+      lc2.x_1=x_mid; 
+      lc2.y_1=y_mid;
+    }
+    else
+    { 
+      lc2.x_2=x_mid; 
+      lc2.y_2=y_mid;
+    }
+    if((int)(lc2.x_1+0.5)==(int)(lc2.x_2+0.5) && (int)(lc2.y_1+0.5)==(int)(lc2.y_2+0.5)) break;
+   }
+  }
+  if(lc2.x_1>wc.x_max)
+  {
+    while(lc2.x_1!=wc.x_max)
+    {
+      x_mid=((lc2.x_1+lc2.x_2)/2); 
+      y_mid=((lc2.y_1+lc2.y_2)/2); 
+      if(x_mid>=wc.x_max)
+      {
+        lc2.x_1=x_mid; 
+        lc2.y_1=y_mid;
+      }
+      else
+      {
+        lc2.x_2=x_mid; 
+        lc2.y_2=y_mid;
+      }
+      if((int)(lc2.x_1+0.5)==(int)(lc2.x_2+0.5) && (int)(lc2.y_1+0.5)==(int)(lc2.y_2+0.5)) break;
+    }
+  }
+  else if(lc2.x_1<wc.x_min)
+  {
+    while(lc2.x_1!=wc.x_min)
+    {
+      x_mid=((lc2.x_1+lc2.x_2)/2); 
+      y_mid=((lc2.y_1+lc2.y_2)/2); 
+      if(x_mid<=wc.x_min)
+      {
+        lc2.x_1=x_mid; 
+        lc2.y_1=y_mid;
+      }
+      else
+      {
+        lc2.x_2=x_mid; 
+        lc2.y_2=y_mid;
+      }
+      if((int)(lc2.x_1+0.5)==(int)(lc2.x_2+0.5) && (int)(lc2.y_1+0.5)==(int)(lc2.y_2+0.5)) break;
+    }
+  }
+  lc.x_1=lc1.x_1; 
+  lc.y_1=lc1.y_1; 
+  lc.x_2=lc2.x_1; 
+  lc.y_2=lc2.y_1;
 }
-else
-{
-lc1.x_2=x_mid; lc1.y_2=y_mid;
-}
-if((int)(lc1.x_1+0.5)==(int)(lc1.x_2+0.5) &&
-(int)(lc1.y_1+0.5)==(int)(lc1.y_2+0.5)) break;
-}
-}
-else if(lc1.y_1<wc.y_min)
-{
-while(lc1.y_1!=wc.y_min)
-{
-x_mid=((lc1.x_1+lc1.x_2)/2); y_mid=((lc1.y_1+lc1.y_2)/2); if(y_mid<=wc.y_min)
-{
-lc1.x_1=x_mid; lc1.y_1=y_mid;
- 
-}
-else
-{
-lc1.x_2=x_mid; lc1.y_2=y_mid;
-}
-if((int)(lc1.x_1+0.5)==(int)(lc1.x_2+0.5) &&
-(int)(lc1.y_1+0.5)==(int)(lc1.y_2+0.5)) break;
-}
-}
-if(lc1.x_1>wc.x_max)
-{
-while(lc1.x_1!=wc.x_max)
-{
-x_mid=((lc1.x_1+lc1.x_2)/2); y_mid=((lc1.y_1+lc1.y_2)/2); if(x_mid>=wc.x_max)
-{
-lc1.x_1=x_mid; lc1.y_1=y_mid;
-}
-else
-{
-lc1.x_2=x_mid; lc1.y_2=y_mid;
-}
-if((int)(lc1.x_1+0.5)==(int)(lc1.x_2+0.5) &&
-(int)(lc1.y_1+0.5)==(int)(lc1.y_2+0.5)) break;
-}
-}
-else if(lc1.x_1<wc.x_min)
-{
-while(lc1.x_1!=wc.x_min)
-{
-x_mid=((lc1.x_1+lc1.x_2)/2); y_mid=((lc1.y_1+lc1.y_2)/2); if(x_mid<=wc.x_min)
-{
- 
-lc1.x_1=x_mid; lc1.y_1=y_mid;
-}
-else
-{
-lc1.x_2=x_mid; lc1.y_2=y_mid;
-}
-if((int)(lc1.x_1+0.5)==(int)(lc1.x_2+0.5) &&
-(int)(lc1.y_1+0.5)==(int)(lc1.y_2+0.5)) break;
-}
-}
-lc2.x_2=lc1.x_1; lc2.y_2=lc1.y_1; if(lc2.y_1>wc.y_max)
-{
-while(lc2.y_1!=wc.y_max)
-{
-x_mid=((lc2.x_1+lc2.x_2)/2); y_mid=((lc2.y_1+lc2.y_2)/2); if(y_mid>=wc.y_max)
-{
-lc2.x_1=x_mid; lc2.y_1=y_mid;
-}
-else
-{
-lc2.x_2=x_mid; lc2.y_2=y_mid;
-}
-if((int)(lc2.x_1+0.5)==(int)(lc2.x_2+0.5) &&
-(int)(lc2.y_1+0.5)==(int)(lc2.y_2+0.5)) break;
-}
-}
-else if(lc2.y_1<wc.y_min)
-{
-while(lc2.y_1!=wc.y_min)
-{
- 
-x_mid=((lc2.x_1+lc2.x_2)/2); y_mid=((lc2.y_1+lc2.y_2)/2); if(y_mid<=wc.y_min)
-{
-lc2.x_1=x_mid; lc2.y_1=y_mid;
-}
-else
-{
-lc2.x_2=x_mid; lc2.y_2=y_mid;
-}
-if((int)(lc2.x_1+0.5)==(int)(lc2.x_2+0.5) &&
-(int)(lc2.y_1+0.5)==(int)(lc2.y_2+0.5)) break;
-}
-}
-if(lc2.x_1>wc.x_max)
-{
-while(lc2.x_1!=wc.x_max)
-{
-x_mid=((lc2.x_1+lc2.x_2)/2); y_mid=((lc2.y_1+lc2.y_2)/2); if(x_mid>=wc.x_max)
-{
-lc2.x_1=x_mid; lc2.y_1=y_mid;
-}
-else
-{
-lc2.x_2=x_mid; lc2.y_2=y_mid;
-}
-if((int)(lc2.x_1+0.5)==(int)(lc2.x_2+0.5) &&
-(int)(lc2.y_1+0.5)==(int)(lc2.y_2+0.5)) break;
-}
-}
-else if(lc2.x_1<wc.x_min)
-{
- 
-while(lc2.x_1!=wc.x_min)
-{
-x_mid=((lc2.x_1+lc2.x_2)/2); y_mid=((lc2.y_1+lc2.y_2)/2); if(x_mid<=wc.x_min)
-{
-lc2.x_1=x_mid; lc2.y_1=y_mid;
-}
-else
-{
-lc2.x_2=x_mid; lc2.y_2=y_mid;
-}
-if((int)(lc2.x_1+0.5)==(int)(lc2.x_2+0.5) &&
-(int)(lc2.y_1+0.5)==(int)(lc2.y_2+0.5)) break;
-}
-}
-lc.x_1=lc1.x_1; lc.y_1=lc1.y_1; lc.x_2=lc2.x_1; lc.y_2=lc2.y_1;
-}
+
 //————————— Rectangle( ) —————————-//
 void Rectangle(const int x_1,const int y_1,const int x_2,const int y_2)
 {
