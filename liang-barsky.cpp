@@ -4,7 +4,7 @@
 #include<dos.h>
 
 void main ()
-  {
+{
   int i, gd = DETECT, gm;
   int x1, y1, x2, y2, xmin, xmax, ymin, ymax, xx1, xx2, yy1, yy2, dx, dy; 
   float t1, t2, p[4], q[4], temp;
