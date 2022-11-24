@@ -74,5 +74,6 @@ void main ()
     yy2 = y1 + t2 * p[3]; 
     line (xx1, yy1, xx2, yy2);
   }
-  delay (5000); closegraph ();
+  delay (5000); 
+  closegraph ();
 }
